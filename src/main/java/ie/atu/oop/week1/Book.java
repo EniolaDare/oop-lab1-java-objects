@@ -4,7 +4,7 @@ public class Book {
     private String title;
     private String author;
     private int pageCount;
-    private boolean available = true;
+    private BookStatus status;
 
     public Book(String title, String author, int pageCount) {
         if (title == null || title.isBlank()) throw new IllegalArgumentException("Title cannot be null or empty");
@@ -14,9 +14,16 @@ public class Book {
         this.title = title;
         this.author = author;
         this.pageCount = pageCount;
+        this.status = BookStatus.AVAILABLE;
     }
 
     public String getTitle() { return title; }
     public String getAuthor() { return author; }
     public int getPageCount() { return pageCount; }
+    public BookStatus getStatus() { return status; }
+
+    public void borrowBook(){
+        if (status == BookStatus.ON_LOAN) throw new IllegalStateException("Book is already on Loan");
+        status = BookStatus.ON_LOAN;
+    }
 }
