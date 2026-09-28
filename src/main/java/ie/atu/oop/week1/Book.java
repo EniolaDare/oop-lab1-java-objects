@@ -26,4 +26,8 @@ public class Book {
         if (status == BookStatus.ON_LOAN) throw new IllegalStateException("Book is already on Loan");
         status = BookStatus.ON_LOAN;
     }
+    public void returnBook(){
+        if (status == BookStatus.AVAILABLE) throw new IllegalStateException("Book is already available");
+        status = BookStatus.AVAILABLE;
+    }
 }

@@ -6,9 +6,10 @@ public class Main {
      public static void main(String[] args) {
          Book myBook = new Book("Dune", "Frank", 412);
          myBook.borrowBook();
+         myBook.returnBook();
 
          try {
-             myBook.borrowBook();
+             myBook.returnBook();
 
          } catch (IllegalStateException e) {
              System.out.println("Error: " + e.getMessage());
