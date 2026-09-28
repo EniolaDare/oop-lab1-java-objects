@@ -1,10 +1,3 @@
-Book Tracker Application
+1) The fifteen day call does not reack book.borrowBook() because, when LibraryService.loanBook() is called, it check the loanDays argument against MAX_LOAN_DAYS, loanDays (15) > MAX_LOAN_DAYS(14) which causes a IllegalArgumentException to be thrown before book.borrowBook() can be called.
 
-Application that stores and tracks book details and status
-
-
-firstBook:
-    .title = "Dune"
-    .author = "Frank Herbert"
-    .pageCount = 412
-    .available = false
+In the seven-day call, at the same point, loanDays (7) < MAX_LOAN_DAYS(14), no exception is thrown, and book.borrowBook() is called.
