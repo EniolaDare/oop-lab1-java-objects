@@ -3,29 +3,25 @@ package ie.atu.oop.week1;
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
-    public static void main(String[] args) {
+     public static void main(String[] args) {
+         Book book1 = new Book("Dune", "Frank", 412);
+         Book book2 = new Book("Clean Code", "Robert C.Martin", 464);
+         LibraryService service = new LibraryService();
 
-        Book firstBook = createBook("Dune", "Frank Herbert", 412);
-        Book secondBook = createBook("Clean Code", "Robert C. Martin", 464);
-        Book thirdBook = createBook("The C programming Language", "Kernighan and Ritchie", 274);
+         System.out.println(book1.getStatus());
+         service.loanBook(book1, 7);
+         System.out.println(book1.getStatus());
+         service.returnBook(book1);
+         System.out.println(book1.getStatus());
+         System.out.println(book2.getStatus());
 
-        firstBook.displayDetails();
-        System.out.println("\n");
-        secondBook.displayDetails();
-        System.out.println("\n");
-        thirdBook.displayDetails();
-        System.out.println("\n");
+         try {
+             service.loanBook(book1, 15);
 
+         } catch (IllegalArgumentException e) {
+             System.out.println("Error: " + e.getMessage());
+         }
 
-        firstBook.borrowBook();
-        firstBook.displayDetails();
-    }
-
-    private static Book createBook(String title, String author, int pageCount){
-        Book book = new Book();
-        book.title = title;
-        book.author = author;
-        book.pageCount = pageCount;
-        return book;
-    }
+         System.out.println(book1.getStatus());
+     }
 }
