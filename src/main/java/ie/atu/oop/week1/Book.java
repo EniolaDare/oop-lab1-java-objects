@@ -1,9 +1,9 @@
 package ie.atu.oop.week1;
 
 public class Book {
-    private String title;
-    private String author;
-    private int pageCount;
+    private final String title;
+    private final String author;
+    private final int pageCount;
     private BookStatus status;
 
     public Book(String title, String author, int pageCount) {
