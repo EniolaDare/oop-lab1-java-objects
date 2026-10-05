@@ -18,5 +18,11 @@ public class Main {
 
          System.out.println("Total books: " + service.getBookCount());
          for (Book book : service.getAllBooks()) System.out.println(book.getTitle());
+
+         Book found = service.findBookByTitle("Dune");
+         if (found != null) System.out.println("Found: " + found.getTitle());
+
+         Book missing = service.findBookByTitle("Animal Farm");
+         if (missing == null) System.out.println("Animal Farm not found");
      }
 }
