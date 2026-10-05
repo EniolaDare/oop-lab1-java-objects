@@ -33,7 +33,12 @@ public class LibraryService {
         for (Book book : books) {
             if (book.getTitle().equals(title)) return book;
         }
+
         return null;
     }
-
+    public boolean removeBook(String title){
+        Book book = findBookByTitle(title);
+        if  (book != null) books.remove(book);
+        return (book != null);
+    }
 }

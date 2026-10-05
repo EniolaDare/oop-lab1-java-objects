@@ -16,13 +16,22 @@ public class Main {
          service.addBook(book2);
          service.addBook(book3);
 
+
          System.out.println("Total books: " + service.getBookCount());
          for (Book book : service.getAllBooks()) System.out.println(book.getTitle());
+         System.out.println();
+
 
          Book found = service.findBookByTitle("Dune");
          if (found != null) System.out.println("Found: " + found.getTitle());
 
          Book missing = service.findBookByTitle("Animal Farm");
          if (missing == null) System.out.println("Animal Farm not found");
+         System.out.println();
+
+
+         System.out.println("Remove Clean Code: " + service.removeBook("Clean Code"));
+         System.out.println("Remove again: " + service.removeBook("Clean Code"));
+         System.out.println("Books left: " + service.getBookCount());
      }
 }
