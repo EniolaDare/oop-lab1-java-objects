@@ -1,28 +1,26 @@
 package ie.atu.oop.week1;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
-        Book dune = new Book("Dune", "Frank Herbert", 412);
-        Book nineteenEightyFour = new Book("1984", "George Orwell", 328);
-        Book cleanCode = new Book("Clean Code", "Robert C. Martin", 464);
+        Path file = Path.of("data", "books.csv");
 
-        LibraryService service = new LibraryService();
+        List<String> lines = new ArrayList<>();
+        lines.add("title,author,pageCount,status");
+        lines.add("Dune,Frank Herbert,412,AVAILABLE");
+        lines.add("Clean Code,Robert C. Martin,464,AVAILABLE");
 
-        service.addBook(dune);
-        service.addBook(nineteenEightyFour);
-        service.addBook(cleanCode);
-
-        System.out.println("Count: " + service.getBookCount());
-
-        Book found = service.findBookByTitle("Dune");
-        if (found != null) System.out.println("Found: " + found.getTitle());
-
-        System.out.println("Loan Dune: " + service.loanBook("Dune", 7));
-        System.out.println("Dune status: " + dune.getStatus());
-        System.out.println("Loan missing: " + service.loanBook("The Hobbit", 7));
-        System.out.println("Return Dune: " + service.returnBook("Dune"));
-        System.out.println("Dune status: " + dune.getStatus());
-        System.out.println("Remove Clean Code: " + service.removeBook("Clean Code"));
-        System.out.println("Final count: " + service.getBookCount());
+        try{
+            Files.createDirectories(file.getParent());
+            Files.write(file, lines);
+            System.out.println("CSV file written");
+        } catch (IOException e) {
+            System.out.println("Could not write file: " + e.getMessage());
+        }
     }
 }
