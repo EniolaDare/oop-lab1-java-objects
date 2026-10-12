@@ -13,9 +13,20 @@ public class BookFileStore {
     public BookFileStore(Path file){
         this.file = file;
     }
-
     private String toCsvRow(Book book){
         return book.getTitle() + "," + book.getAuthor() + "," + book.getPageCount() +"," + book.getStatus();
+    }
+    private Book fromCsvRow(String row){
+        String[] parts = row.split(",", -1);
+
+        if (parts.length != 4) throw new IllegalArgumentException("Invalid CSV row: " + row);
+
+        int pageCount = Integer.parseInt(parts[2]);
+        Book book = new Book(parts[0], parts[1], pageCount);
+
+        if (parts[3].equals("ON_LOAN")) book.borrowBook();
+
+        return book;
     }
 
     public void save(List<Book> books) throws IOException {
@@ -29,5 +40,18 @@ public class BookFileStore {
         }
 
         Files.write(file, lines);
+    }
+    public List<Book> load() throws IOException {
+        List<Book> books = new ArrayList<>();
+
+        if (Files.notExists(file)) return books;
+
+        List<String> lines = Files.readAllLines(file);
+
+        for (String row : lines) {
+            if (!row.isBlank()) books.add(fromCsvRow(row));
+        }
+
+        return books;
     }
 }
