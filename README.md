@@ -32,3 +32,12 @@ In the seven-day call, at the same point, loanDays (7) < MAX_LOAN_DAYS(14), no e
   2) LibraryService: handles book list, book search, book loans + loan durations, book returns, adding books, removing books 
   3) Book: encapsulated book attributes, status checks for book loans and returns
 - BUILD SUCCESS, final count = 2, n/a
+
+# LAB 5
+- Throw statement creates and return an exception to the caller, the catch block used by the caller is used to handle exceptions
+- Path.of() is used to create new paths, Path.getFileName, Files.notExists
+- Lab 5 adds exception handling and CSV persistence to the Library application
+- Checked IO exceptions must be wrapped in a try/catch block, but unchecked NumberFormatExceptions do not NEED to be wrapped in a try/catch block
+- Path is used to represent file locations but Files is used to perform actions on files
+- CSV cols: title, author, pageCount, status
+- -n/a

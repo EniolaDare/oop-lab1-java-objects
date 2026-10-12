@@ -37,7 +37,7 @@ public class LibraryService {
     public int getBookCount(){
         return books.size();
     }
-    public List<Book> getAllBooks(){
+    public List<Book> getBooks(){
         return new ArrayList<>(books);
     }
 
