@@ -5,22 +5,38 @@ import java.nio.file.Path;
 
 public class Main {
     public static void main(String[] args) {
-        Book dune = new Book("Dune", "Frank Herbert", 412);
-        Book cleanCode = new Book("Clean Code", "Robert C. Martin", 464);
-
         LibraryService service = new LibraryService();
+        BookFileStore store = new BookFileStore(Path.of("data", "books.csv"));
 
-        service.addBook(dune);
-        service.addBook(cleanCode);
-        service.loanBook("dune", 7);
+        try {
+            for (Book book : store.load()) service.addBook(book);
+            System.out.println("Loaded: " + service.getBookCount());
 
-        BookFileStore store = new BookFileStore( Path.of("data", "books.csv") );
+        }
+        catch (IOException e) {
+            System.out.println("Load failed: " + e.getMessage());
+            return;
+        }
+
+        if (service.getBookCount() == 0) {
+            Book dune = new Book("Dune", "Frank Herbert", 412);
+            Book cleanCode = new Book("Clean Code", "Robert C. Martin", 464);
+
+            service.addBook(dune);
+            service.addBook(cleanCode);
+            service.loanBook("Dune", 7);
+        }
+
+        for (Book book : service.getBooks()) {
+            System.out.println(book.getTitle() + " - " + book.getStatus());
+        }
 
         try {
             store.save(service.getBooks());
             System.out.println("Saved: " + service.getBookCount());
-        } catch (IOException e){
-            System.out.println("Save failed: "  + e.getMessage());
+
+        } catch (IOException e) {
+            System.out.println("Save failed: " + e.getMessage());
         }
     }
 }

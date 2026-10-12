@@ -48,7 +48,8 @@ public class BookFileStore {
 
         List<String> lines = Files.readAllLines(file);
 
-        for (String row : lines) {
+        for (int i = 1; i < lines.size(); i++) {
+            String row = lines.get(i);
             if (!row.isBlank()) books.add(fromCsvRow(row));
         }
 
