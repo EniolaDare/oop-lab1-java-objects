@@ -1,27 +1,28 @@
 package ie.atu.oop.week1;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
-     public static void main(String[] args) {
-         Book book1 = new Book("Dune", "Frank", 412);
-         Book book2 = new Book("Clean Code", "Robert C.Martin", 464);
-         LibraryService service = new LibraryService();
+    public static void main(String[] args) {
+        Book dune = new Book("Dune", "Frank Herbert", 412);
+        Book nineteenEightyFour = new Book("1984", "George Orwell", 328);
+        Book cleanCode = new Book("Clean Code", "Robert C. Martin", 464);
 
-         System.out.println(book1.getStatus());
-         service.loanBook(book1, 7);
-         System.out.println(book1.getStatus());
-         service.returnBook(book1);
-         System.out.println(book1.getStatus());
-         System.out.println(book2.getStatus());
+        LibraryService service = new LibraryService();
 
-         try {
-             service.loanBook(book1, 15);
+        service.addBook(dune);
+        service.addBook(nineteenEightyFour);
+        service.addBook(cleanCode);
 
-         } catch (IllegalArgumentException e) {
-             System.out.println("Error: " + e.getMessage());
-         }
+        System.out.println("Count: " + service.getBookCount());
 
-         System.out.println(book1.getStatus());
-     }
+        Book found = service.findBookByTitle("Dune");
+        if (found != null) System.out.println("Found: " + found.getTitle());
+
+        System.out.println("Loan Dune: " + service.loanBook("Dune", 7));
+        System.out.println("Dune status: " + dune.getStatus());
+        System.out.println("Loan missing: " + service.loanBook("The Hobbit", 7));
+        System.out.println("Return Dune: " + service.returnBook("Dune"));
+        System.out.println("Dune status: " + dune.getStatus());
+        System.out.println("Remove Clean Code: " + service.removeBook("Clean Code"));
+        System.out.println("Final count: " + service.getBookCount());
+    }
 }
